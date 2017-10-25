@@ -16,23 +16,23 @@ module.exports = knex => {
   });
   router.post("/", (req, res) => {
     // Post to database with event info
-    // DataHelpers.createEvent("id", localStorage.hash)
+    // DataHelpers.createEvent("id", eventName, localStorage.hash) RETURN {event}
     // Callback res.render("/event/:id")
   });
   router.get("/:id", (req, res) => {
     // Retreive event info from db
-    // DataHelpers.getEvent("id")
+    // DataHelpers.getEvent("id") RETURN {event}
     // Callback res.render("/event/:id")
   });
   router.post("/:id", (req, res) => {
     // Post votes to database
-    // DataHelpers.submitVotes("id", {votes})
+    // DataHelpers.submitVotes("id", {votes}) RETURN {event}
     // Callback res.render("/event/:id")
   });
   router.put("/:id", (req, res) => {
     // Edit votes in database
-    // DataHelpers.editVotes("id, {votes}")
-    // Callback res.render("/event/:id")
+    // DataHelpers.editVotes("id, {votes}") RETURN {event}
+    // Callback res.render("/event/:id", {event})
   });
   router.delete("/:id", (req, res) => {
     // Delete event in database
@@ -52,4 +52,32 @@ module.exports = knex => {
 //   }
 //   hash: localStorage.hash,
 //   email: "address",
+// }
+
+
+// {event} = {
+//   creatorId,
+//   event_name,
+//   days: [
+//     2017-10-30: {
+//       times: {
+//         start: 1300
+//         end: 1900
+//       }
+//       attendees: {
+//         person1 : true,
+//         person2 : false,
+//       }
+//     },
+//     2017-10-31: {
+//       times: {
+//         start: 1900
+//         end: 2300
+//       },
+//       attendees: {
+//         person1: false,
+//         person2: true,
+//       }
+//     }
+//   ],  
 // }
