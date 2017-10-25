@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+console.log(typeof process.env.DB_SSL);
+
 module.exports = {
 
   development: {
@@ -10,7 +12,8 @@ module.exports = {
       password : process.env.DB_PASS,
       database : process.env.DB_NAME,
       port     : process.env.DB_PORT,
-      ssl      : process.env.DB_SSL
+      //ssl      : process.env.DB_SSL
+      //we want ssl to default to false (ask Dean)
     },
     migrations: {
       directory: './db/migrations',
