@@ -3,18 +3,20 @@
 const express = require("express");
 const router = express.Router();
 
+// Move knex to DataHelper.js
+
 module.exports = knex => {
   router.get("/", (req, res) => {
-    knex
-      .select("*")
-      .from("users")
-      .then(results => {
-        res.json(results);
-      });
+    // knex
+    //   .select("*")
+    //   .from("users")
+    //   .then(results => {
+    //     res.json(results);
+    //   });
   });
   router.post("/", (req, res) => {
     // Post to database with event info
-    // DataHelpers.createEvent("id")
+    // DataHelpers.createEvent("id", localStorage.hash)
     // Callback res.render("/event/:id")
   });
   router.get("/:id", (req, res) => {
@@ -39,3 +41,15 @@ module.exports = knex => {
   });
   return router;
 };
+
+// {votes} = {
+//   event_id,
+//   attendee: "someName",
+//   days: {
+//     Date: true,
+//     Date: false,
+//     Date: true
+//   }
+//   hash: localStorage.hash,
+//   email: "address",
+// }
