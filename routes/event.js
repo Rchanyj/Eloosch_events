@@ -6,44 +6,42 @@ const router = express.Router();
 // Move knex to DataHelper.js
 
 module.exports = () => {
-  router.get("/", (req, res) => {
-    // knex
-    //   .select("*")
-    //   .from("users")
-    //   .then(results => {
-    //     res.json(results);
-    //   });
-  });
   router.post("/", (req, res) => {
     // Post to database with event info
     // DataHelpers.createEvent("id", eventName, localStorage.hash) RETURN {event}
-    // Callback res.render("/event/:id")
+    // Callback res.render("/events/:id")
   });
-  router.get("/:id", (req, res) => {
+  router.get("/:event_id", (req, res) => {
     // Retreive event info from db
     // DataHelpers.getEvent("id") RETURN {event}
-    // Callback res.render("/event/:id")
+    // Callback res.render("/events/:id")
   });
-  router.post("/:id", (req, res) => {
-    // Post votes to database
-    // DataHelpers.submitVotes("id", {votes}) RETURN {event}
-    // Callback res.render("/event/:id")
+  router.put("/:event_id", (req, res) => {
+    // Edit event info
+    // DataHelpers.editEvent("event_id") RETURN {event}
+    // Callback res.render("/events/event_:id")
   });
-  router.put("/:id", (req, res) => {
-    // Edit votes in database
-    // DataHelpers.editVotes("id, {votes}") RETURN {event}
-    // Callback res.render("/event/:id", {event})
-  });
-  router.delete("/:id", (req, res) => {
+  router.delete("/:event_id", (req, res) => {
     // Delete event in database
     // DataHelpers.deleteEvent("id")
     // Callback res.render("/")
   });
+
+  router.post("/:event_id/votes", (req, res) => {
+    // Post votes to database
+    // DataHelpers.submitVotes("event_id", {votes}) RETURN {event}
+    // Callback res.render("/events/:id")
+  });
+  router.put("/:event_id/votes", (req, res) => {
+    // Edit votes in database
+    // DataHelpers.editVotes("event_id, {votes}") RETURN {event}
+    // Callback res.render("/event/:id", {event})
+  });
+
   return router;
 };
 
 // {votes} = {
-//   event_id,
 //   attendee: "someName",
 //   days: {
 //     Date: true,
