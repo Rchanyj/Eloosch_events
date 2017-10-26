@@ -42,6 +42,7 @@ app.use("/events", eventsRoutes);
 
 // Home page
 app.get("/", (req, res) => {
+  // console.log(req);
   res.render("index");
 });
 
