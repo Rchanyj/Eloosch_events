@@ -8,6 +8,6 @@ DELETE '/events/:event_id' - Delete event
 
 VOTES
 
-POST '/events/:event_id/voting' - Create vote
+POST '/events/:event_id/votes' - Create vote
 PUT '/events/:event_id/votes' - Edit vote
 
