@@ -11,17 +11,17 @@ module.exports = (DataHelpers) => {
       id: randomKey(),
       name : "testing event!",
       creator : "Tester McTest",
-      days: {
-        "2017-11-01": {
-          startTime: 1700,
-          endTime: 2100
+      days: [
+        { event_date: "2017-11-01",
+          event_start: 1700,
+          event_end: 2100
         },
-        "2017-11-02": {
-          startTime: undefined,
-          endTime: undefined
+        { event_date: "2017-11-02",
+          event_start: undefined,
+          event_end: undefined
         }
-      },
-      createdAt: new Date()
+      ],
+      create_date: new Date()
     };
     // Post to database with event info
     DataHelpers.createEvent(newEvent)
@@ -72,8 +72,8 @@ module.exports = (DataHelpers) => {
 
 
 // {event} = {
-//   creatorId,
-//   event_name,
+//   creator,
+//   name,
 //   days: [
 //     2017-10-30: {
 //       times: {
