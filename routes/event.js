@@ -5,7 +5,7 @@ const router = express.Router();
 
 // Move knex to DataHelper.js
 
-module.exports = knex => {
+module.exports = () => {
   router.get("/", (req, res) => {
     // knex
     //   .select("*")
