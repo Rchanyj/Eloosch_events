@@ -6,7 +6,6 @@ const router = express.Router();
 
 module.exports = (DataHelpers) => {
   router.post("/", (req, res) => {
-<<<<<<< HEAD
     const input = req.body
     const days = []
     for (let key in input) {
@@ -24,28 +23,8 @@ module.exports = (DataHelpers) => {
       creator : input.creator,
       days
     }
-
-=======
-    // TESTER EVENT OBJECT
-    // REMOVE THIS WHEN NEEDED TO USE
-    // curl -X post http://localhost:8080/
-    const newEvent = { 
-      name : "testing event!",
-      creator : "Tester McTest",
-      days: [
-        { event_date: "2017-11-01",
-          event_start: "1700",
-          event_end: "2100"
-        },
-        { event_date: "2017-11-02",
-          event_start: "0000",
-          event_end: "0000"
-        }
-      ]
-    };
     // Post to database with event info
     console.log("posting event");
->>>>>>> server/routes
     DataHelpers.createEvent(newEvent)
       .then( (id) => res.status(200).send(id))
   });
