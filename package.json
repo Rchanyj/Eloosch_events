@@ -7,13 +7,20 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "local": "./node_modules/.bin/nodemon --ignore public/",
-    "knex": "./node_modules/.bin/knex"
+    "knex": "./node_modules/.bin/knex",
+    "develop": "npm-run-all -p local sass:*",
+    "sass:watch": "chokidar 'styles/**/*.scss' -c 'npm run sass:build'",
+    "sass:build": "npm-run-all -p build:*",
+    "build:autoprefixer": "postcss public/styles/*.css --use autoprefixer -d public/styles",
+    "build:compile": "node-sass-chokidar --source-map true styles -o public/styles"
   },
   "author": "Lighthouse Labs",
   "license": "ISC",
   "dependencies": {
+    "autoprefixer": "^7.1.6",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.15.2",
+    "chokidar-cli": "^1.2.0",
     "dotenv": "^2.0.0",
     "ejs": "^2.4.1",
     "express": "^4.13.4",
@@ -22,8 +29,11 @@
     "knex-logger": "^0.1.0",
     "moment": "^2.19.1",
     "morgan": "^1.7.0",
+    "node-sass-chokidar": "0.0.3",
     "node-sass-middleware": "^0.9.8",
+    "npm-run-all": "^4.1.1",
     "pg": "^6.4.2",
+    "postcss-cli": "^4.1.1",
     "sha1": "^1.1.1"
   },
   "devDependencies": {
