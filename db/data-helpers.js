@@ -21,9 +21,12 @@ module.exports = function makeDataHelpers(knex) {
         });
     },
     getEvent: eventId => {
-      return (result = knex("events")
+      let eventObj = { event : {}, votes: []};
+      return knex("events")
         .join("event_days", "events.id", "event_days.event_id")
-        .select("*"));
+        .select("*")
+        // .join("person_event_days", "person_event_days.event_day", "event_days.event_id")
+        // .join("persons", "persons.id", "person_event_days.person_id")
     },
     submitVotes: (eventId, votes) => {
       let newId;
@@ -58,6 +61,8 @@ module.exports = function makeDataHelpers(knex) {
         })
     },
     getVotes: () => {},
-    deleteEvent: () => {}
+    deleteEvent: eventId => {
+      return knex("events").where("event_link_id", eventId).del()
+    }
   };
 };

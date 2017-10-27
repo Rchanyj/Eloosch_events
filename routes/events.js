@@ -28,9 +28,9 @@ module.exports = (DataHelpers) => {
       .then( (id) => res.redirect("/events/" + id));
   });
   router.get("/:event_id", (req, res) => {
-    // Retreive event info from db
     DataHelpers.getEvent(req.params.event_id)
-    .then( res => console.log(res))
+      .then(event => console.log(event))
+      // .then( res => console.log(res))
       // .then( event => res.render("events/:id", event))
   });
   router.put("/:event_id", (req, res) => {
@@ -39,9 +39,8 @@ module.exports = (DataHelpers) => {
     // Callback res.render("/events/event_:id")
   });
   router.delete("/:event_id", (req, res) => {
-    // Delete event in database
-    // DataHelpers.deleteEvent("id")
-    // Callback res.render("/")
+    DataHelpers.deleteEvent(req.params.event_id)
+    
   });
 
   router.post("/:event_id/votes", (req, res) => {
@@ -70,3 +69,29 @@ module.exports = (DataHelpers) => {
 
   return router;
 };
+
+
+
+
+// const result = {
+//   event : {
+//     name: "Birthday",
+//     creator: "hash",
+//     creator_name: "Donald",
+//     email: "email@email.email"
+//   },
+//   votes: [
+//     { name: "Algernon",
+//       days: {
+//         "2017-11-01" : false,
+//         "2017-11-02" : true
+//       }
+//     },
+//     { name: "Earnest",
+//       days: {
+//         "2017-11-01" : true,
+//         "2017-11-02" : true
+//       }
+//     }
+//   ]
+// }
