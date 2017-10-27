@@ -58,6 +58,26 @@ module.exports = function makeDataHelpers(knex) {
         })
     },
     getVotes: () => {},
-    deleteEvent: () => {}
+    deleteEvent: (eventID) => {
+      // 1st, delete entries from person_event_days table using correlated tables
+      // person_event_days rows correlated to a join of events and event_days
+      const query = 'DELETE FROM person_event_days ' +
+                      'WHERE event_day IN ' +
+                      '( SELECT ed.id FROM events ev ' +
+                        'JOIN event_days ed ' +
+                        'ON (ev.event_link_id = ? AND ev.id = ed.event_id)' +
+                      ')';                
+      return knex.raw(query, eventID)
+      // 2nd, delete entries from event_days table
+      .then( () =>  {
+      const query = 'DELETE FROM event_days ' +
+                      'WHERE event_id IN ' +
+                      '( SELECT id FROM events WHERE event_link_id = ? )'      
+      return knex.raw(query, eventID);     
+      // 3rd, delete the event row from events table
+      }).then( () => {
+        return knex('events').where('event_link_id', eventID).del();
+      })
+    }
   };
 };
