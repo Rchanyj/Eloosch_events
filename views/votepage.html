@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Availability Page</title>
+
+    <link rel="stylesheet" href="../public/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="../public/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="../public/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="../public/styles/votepage.css" type="text/css" />
+
+    <script type="text/javascript" src="../public/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="../public/scripts/app.js"></script>
+    <script type="text/javascript" src="../public/scripts/votepage.js"></script>
+
+    <!--Calendar links-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.6.2/fullcalendar.min.css"/>
+    <script src="http://momentjs.com/downloads/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.6.2/fullcalendar.min.js"></script>
+  </head>
+
+  <body>
+    <section id="confirm_avail_form" class="centered">
+      <form action="/events/:id" action="POST">
+        <div>
+          <label><b>Your name</b></label>
+          <input type="text" placeholder="Let the fam know you're going!" name="eventName">
+        </div>
+        <div>
+          <label><b>Email</b></label>
+          <input id="email-input" type="email" placeholder="Email - (not required)" name="email">
+        </div>
+        <div><input type='submit' id='confirm_avail' value='Confirm availability'></div>
+        <div><button type='button' id='fakeconfirm'>FakeSubmitToSeeHiddenStates</button></div>
+      </form>
+    </section>
+    <!-- Editing function buttons, hidden until triggered -->
+      <!--Edit button, hidden until the submit event completes -->
+      <!-- Test with click event -->
+    <div><button hidden type='button' id='edit_avail'>Edit availability</button></div>
+    <!--Cancel and confirm buttons, hidden until 'edit' button is clicked -->
+    <div><button hidden type='button' id='cancel_edit'>Cancel changes</button></div>
+    <div><button hidden type='button' id='confirm_changes'>Confirm changes</button></div>
+    <h3 class="centered">Event name</h3>
+    <h2 class="centered">When y'all free?</h2>
+    <div class='invite' id='invite'>
+      <p>special URL (placeholder)</p>
+      <button type='button' id='invite_button'>Invite more peeps</button>
+    </div>
+    <div id='calendar'></div>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
