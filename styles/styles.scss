@@ -1,0 +1,29 @@
+#calendar {
+  width: 900px;
+  margin: 0 auto 40px;
+}
+button {
+  padding: 5px;
+}
+.centered {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+}
+.selected {
+  background: #cdc;
+}
+#event-build-form > * {
+  text-align: left;
+  padding: 10px 0;
+}
+#event-build-form {
+  width: 900px;
+  margin: 0 auto;
+}
+#createEventButton {
+  border: 1px solid black;
+  display: inline-block;
+  padding: 5px;
+  cursor: pointer;
+}
