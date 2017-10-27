@@ -6,27 +6,29 @@ const router = express.Router();
 
 module.exports = (DataHelpers) => {
   router.post("/", (req, res) => {
-    // TESTER EVENT OBJECT
-    // REMOVE THIS WHEN NEEDED TO USE
-    // curl -X post http://localhost:8080/
-    const newEvent = { 
-      name : "testing event!",
-      creator : "Tester McTest",
-      days: [
-        { event_date: "2017-11-01",
-          event_start: 1700,
-          event_end: 2100
-        },
-        { event_date: "2017-11-02",
-          event_start: "0000",
-          event_end: "0000"
+    const input = req.body
+    const days = []
+    for (let key in input) {
+      if (key.startsWith('date')) {
+        let eventDay = {
+          event_date: input[key],
+          event_start: '0000',
+          event_end: '0000'
         }
-      ]
-    };
-    // Post to database with event info
+        days.push(eventDay)
+      }
+    }
+    const newEvent = {
+      name : input.eventName,
+      creator : input.creator,
+      days
+    }
+
     DataHelpers.createEvent(newEvent)
       .then( (id) => res.redirect("/events/" + id));
   });
+
+
   router.get("/:event_id", (req, res) => {
     // Retreive event info from db
     DataHelpers.getEvent(req.params.event_id)
@@ -50,7 +52,7 @@ module.exports = (DataHelpers) => {
     // curl -X POST http://localhost:8080/events/::unique_event_id/votes
     const votes = {
     name: "someName",
-    days: { 
+    days: {
         "2017-11-01" : false,
         "2017-11-02" : true
       },
