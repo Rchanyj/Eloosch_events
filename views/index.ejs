@@ -5,13 +5,35 @@
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/styles.css" type="text/css" />
 
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!--Calendar links-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.6.2/fullcalendar.min.css"/>
+    <script src="http://momentjs.com/downloads/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.6.2/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="/scripts/createEvent.js"></script>
   </head>
-
   <body>
-    <h1>Hello World!</h1>
+    <section id="event-build-form" class="centered">
+      <form action="/events" action="POST">
+        <div>
+          <label><b>Event Name</b></label>
+          <input type="text" placeholder="My 98th birthday party!" name="eventName">
+        </div>
+        <div>
+          <label><b>Creator Name</b></label>
+          <input type="text" placeholder="Old Bird" name="creator">
+        </div>
+        <div>
+          <label><b>Email</b></label>
+          <input id="email-input" type="email" placeholder="Email - (not required)" name="email">
+        </div>
+        <div id="createEventButton" >Create Event</div>
+      </form>
+    </section>
+    <h2 class="centered">Calendar!</h2>
+    <button type='button' class='togglelock centered'>Toggle Lock</button>
+    <div id='calendar'></div>
   </body>
 </html>
