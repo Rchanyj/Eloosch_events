@@ -1,9 +1,13 @@
 exports.seed = function(knex, Promise) {
   // Deletes events ALL existing entries
   return knex('person_event_days').del()
+    .then( () => knex.raw('ALTER SEQUENCE person_event_days_id_seq RESTART WITH 1'))
     .then( () => knex('persons').del())
+    .then( () => knex.raw('ALTER SEQUENCE persons_id_seq RESTART WITH 1'))    
     .then( () =>  knex('event_days').del())
-    .then( () => knex('events').del())    
+    .then( () => knex.raw('ALTER SEQUENCE event_days_id_seq RESTART WITH 1'))    
+    .then( () => knex('events').del())
+    .then( () => knex.raw('ALTER SEQUENCE events_id_seq RESTART WITH 1'))    
     .then(function () {
       return knex('events').insert([
         {name: 'holiday', 
