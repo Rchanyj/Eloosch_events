@@ -1,7 +1,5 @@
 require('dotenv').config();
 
-console.log(typeof process.env.DB_SSL);
-
 module.exports = {
 
   development: {
