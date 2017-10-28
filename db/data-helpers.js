@@ -89,16 +89,6 @@ module.exports = function makeDataHelpers (knex) {
         .where('events.event_link_id', eventId)
         .then(eventDays => {
           voteStorage = eventDays
-          // eventDays.forEach(day => {
-          //   voteStorage.push({
-          //     event_id: day.event_id,
-          //     event_date: day.event_date,
-          //     vote_id: day.vote_id,
-          //     vote: day.vote,
-          //     event_day: day.event_day_id,
-          //     person_id: day.person_id
-          //   })
-          // })
           return voteStorage
         // Delete all votes from database
         }).then((votes) => {
@@ -113,7 +103,7 @@ module.exports = function makeDataHelpers (knex) {
               eventData.days.forEach(day => {
                 // Insert days
                 knex.insert({
-                  event_id: parseInt(votes[0].event_id, 10),
+                  event_id: votes[0].event_id,
                   event_date: day.event_date,
                   event_start: day.event_start,
                   event_end: day.event_end
@@ -123,7 +113,7 @@ module.exports = function makeDataHelpers (knex) {
                     for (let vote in votes) {
                       if (day.event_date === vote.event_date) {
                         knex.insert({
-                          person_id: parseInt(vote.person_id, 10),
+                          person_id: vote.person_id,
                           vote: vote.vote,
                           event_day: parseInt(eventDayId, 10)
                         })
