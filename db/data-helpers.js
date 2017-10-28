@@ -217,6 +217,14 @@ module.exports = function makeDataHelpers (knex) {
         }).then(() => {
           return knex('events').where('event_link_id', eventID).del()
         })
+    },    
+    getTotAttendees: (eventID) => {      
+      eventAttendeesCount = 
+        knex('events').countDistinct('person_event_days.person_id')
+          .innerJoin('event_days', 'events.id', 'event_days.event_id')
+          .innerJoin('person_event_days', 'event_days.id', 'person_event_days.event_day')
+          .where('events.event_link_id', eventID);
+        return eventAttendeesCount;
     }
   }
 }
