@@ -36,8 +36,29 @@ module.exports = (DataHelpers) => {
   });
   router.put("/:event_id", (req, res) => {
     // Edit event info
+    const event = {
+      name: "CHANGED!",
+      creator: "OJ7bfLEx3tao85q5",
+      days: [ 
+      {
+        event_date: "2017-11-02",
+        event_start: '0000',
+        event_end: '0000'
+      },
+      {
+        event_date: "2017-11-03",
+        event_start: '0000',
+        event_end: '0000'
+      },
+      {
+        event_date: "2017-11-10",
+        event_start: '0000',
+        event_end: '0000'
+      },
+      ]
+    }
     DataHelpers.editEvent(req.params.event_id, event)
-    // Callback res.render("/events/event_:id")
+      .then( data => res.json(data))
   });
   router.delete("/:event_id", (req, res) => {
     DataHelpers.deleteEvent(req.params.event_id)
