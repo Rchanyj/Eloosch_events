@@ -50,7 +50,6 @@ module.exports = function makeDataHelpers (knex) {
         .where('events.event_link_id', eventId)
         // Format results into object for client side
         .then(eventDays => {
-          console.log(eventDays)
           eventData.event = {
             name: eventDays[0].event_name,
             creator: eventDays[0].creator
@@ -77,42 +76,26 @@ module.exports = function makeDataHelpers (knex) {
     editEvent: (eventId, eventData) => {
       let voteStorage = []
       // Store all votes associated with event
-      return knex('events')
-        .join('event_days', 'event_days.event_id', 'events.id')
-        .join('person_event_days', 'person_event_days.event_day', 'event_days.id')
+      return knex('event_days')
+        .join('events', 'event_days.event_id', 'events.id')
+        .leftOuterJoin('person_event_days', 'person_event_days.event_day', 'event_days.id')
         .select('events.id as event_id',
           'event_days.id as event_day_id',
           'event_days.event_date as event_date',
           'events.id as event_id',
           'person_event_days.id as vote_id',
-          'person_event_days.vote',
+          'person_event_days.vote as vote',
           'person_event_days.person_id')
         .where('events.event_link_id', eventId)
         .then(eventDays => {
-          eventDays.forEach(day => {
-            voteStorage.push({
-              event_id: day.event_id,
-              event_date: day.event_date,
-              vote_id: day.vote_id,
-              vote: day.vote,
-              event_day: day.event_day_id,
-              person_id: day.person_id
-            })
-          })
+          voteStorage = eventDays
           return voteStorage
         // Delete all votes from database
         }).then((votes) => {
-          votes.forEach(vote => {
-            knex('person_event_days').where('id', vote.vote_id).del()
-          })
+          knex('person_event_days').where('event_day', votes[0].event_day_id).del().then(() => {
+            return knex('event_days').where('event_id', votes[0].event_id).del()
+          }).catch(err => console.log(err))
           return votes
-        // Delete all days from event
-        }).then(votes => {
-          eventData.days.forEach(day => {
-            knex('event_days').where('id', votes.event_day).del()
-          })
-          return votes
-        // Update event
         }).then(votes => {
           // Rename event
           knex('events').where('event_link_id', eventId).update('name', eventData.name)
@@ -120,20 +103,19 @@ module.exports = function makeDataHelpers (knex) {
               eventData.days.forEach(day => {
                 // Insert days
                 knex.insert({
-                  event_id: parseInt(votes[0].event_id, 10),
+                  event_id: votes[0].event_id,
                   event_date: day.event_date,
                   event_start: day.event_start,
                   event_end: day.event_end
                 }).into('event_days').returning('id')
                   // Insert votes which still match
                   .then((eventDayId) => {
-                    console.log(eventDayId)
                     for (let vote in votes) {
                       if (day.event_date === vote.event_date) {
                         knex.insert({
                           person_id: vote.person_id,
                           vote: vote.vote,
-                          event_day: eventDayId
+                          event_day: parseInt(eventDayId, 10)
                         })
                         break
                       }
