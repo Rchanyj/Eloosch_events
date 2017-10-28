@@ -1,0 +1,8 @@
+node_modules/
+public/styles
+.env
+*.log
+*.sqlite3
+ideastest/
+testDBfuncs.js
+node_modules/
