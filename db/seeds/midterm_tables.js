@@ -12,7 +12,7 @@ exports.seed = function(knex, Promise) {
       return knex('events').insert([
         {name: 'holiday', 
         creator: 'sdfdfnnn355ndjfnsdfn8ksfnsdfnn32nnsdjnjsdfn', create_date: '2017-08-16',
-        event_link_id: '8jhf7ksdn5dsfn8a'},
+        event_link_id: '8jhf7ksdn5dsfn8a'}, //8jhf7ksdn5dsfn8a
         {name: 'birthday', 
         creator: 'j87xg5f29j5ndjfnsdfn8ksfnsdfnn32nnsdjnjsdfn', create_date: '2017-08-17',
         event_link_id: 'o9ff7ksdn5dsfn8a'},
