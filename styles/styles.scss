@@ -1,29 +1,220 @@
-#calendar {
-  width: 900px;
-  margin: 0 auto 40px;
+/* VARIABLES VARIABLES VARIABLES VARIABLES  */
+
+$form-font-size: 1.1em;
+$main: black;
+$form-color: #555;
+
+$c1: #FAFAFA;
+$c2: #e1fcf1;
+$c3: #757575;
+$c4: #ff6b6b1a;
+$c5: #424242;
+
+$today-color: rgba(199,255,231,0.5);
+$selected-color: rgba(152,234,134,0.5);
+$cal-hover: rgba(152,234,134,0.4);
+
+/* BASE LAYOUT BASE LAYOUT BASE LAYOUT*/
+
+body {
+  background: $c1;
+  font-size: 18px;
+  font-family: 'Slabo 27px', serif;
+  /*font-family: 'Montserrat', sans-serif;*/
+  /*font-family: 'Raleway', sans-serif;*/
+  /*font-family: 'Playfair Display', serif;*/
 }
-button {
-  padding: 5px;
+
+.container-flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
-.centered {
+
+.med-margin-top {
+  margin-top: 50px;
+}
+
+/*HEADER HEADER HEADER HEADER*/
+
+header {
+  color: $c3;
+  padding-top: 1em;
   text-align: center;
-  display: block;
-  margin: 0 auto;
+  font-size: 2.4em;
+  font-weight: 600;
 }
-.selected {
-  background: #cdc;
-}
-#event-build-form > * {
-  text-align: left;
-  padding: 10px 0;
-}
+
+/*  FORM FORM FORM FORM FORM  */
+
 #event-build-form {
-  width: 900px;
-  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  * {
+    font-size: $form-font-size;
+    color: $form-color;
+  }
+
+  .form-input {
+    margin-bottom: 1em;
+
+    p {
+      margin: 0;
+      display: inline-block;
+      &:first-of-type {
+        width: 6.5em;
+      }
+    }
+
+    input {
+      width: 350px;
+      background: rgba(0,0,0,0);
+      border: none;
+      border-image: none;
+      border-bottom: 2px solid transparent;
+      border-image: linear-gradient(to right, rgba(189,189,189,.5) 0%, rgba(189,189,189,1) 20%, rgba(189,189,189,1) 80%, rgba(189,189,189,0) 100%);
+      border-image-slice: 1;
+      &::placeholder {
+        transition: all .2s ease-out;
+      }
+      &:focus {
+        outline: none;
+          /*border-image: linear-gradient(to right, rgba(0,0,0, 0.4) 0%, rgba(0,0,0,.1) 30%, rgba(0,0,0,0) 100%);*/
+          border-image-slice: 1;
+        &::placeholder {
+          color: $form-color;
+          opacity: .8;
+        }
+      }
+    }
+  }
 }
+
+
+/* ------------------------------------- */
+
+
+/*CALENDAR CALENDAR CALENDAR CALENDAR*/
+
+#calendar {
+  color: $c3;
+  width: 600px;
+}
+
+.selected {
+  background: $selected-color;
+}
+
+.fc-toolbar .fc-left {
+  color: $c3;
+}
+
+.fc-unthemed td.fc-today {
+  background: $today-color;
+}
+
+.fc-day {
+  transition: all .2s ease-out;
+  &fc-past {
+    opacity: 0.9;
+  }
+  &:hover {
+    background: $cal-hover;
+  }
+  &.fc-past {
+    background: $c4;
+  }
+}
+
+td.fc-today.fc-day {
+  &:hover {
+    background: $cal-hover;
+  }
+}
+
+.fc-day-top {
+  &.fc-past {
+    opacity: 0.2;
+
+  }
+}
+
+.fc-day-top.fc-other-month {
+  opacity: .5;
+}
+
+.fc-row .fc-content-skeleton {
+  z-index: 0;
+}
+
+.fc-ltr .fc-basic-view .fc-day-top .fc-day-number {
+  font-size: .8em;
+}
+
+.fc-day-grid-container {
+  height: auto !important;
+}
+
+.fc-state-default {
+  background-image: none;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+}
+
+.fc-state-disabled {
+  opacity: 0;
+}
+
+
+/* CREATE BUTTON CREATE BUTTON CREATE BUTTON */
+
 #createEventButton {
-  border: 1px solid black;
-  display: inline-block;
-  padding: 5px;
-  cursor: pointer;
+  text-align: center;
+  margin: 2em 0;
+  div {
+    border: 2px solid $main;
+    display: inline;
+    padding: .7em;
+    cursor: pointer;
+    opacity: .7;
+    transition: all .1s ease-out;
+    border-radius: 4px;
+    &:hover {
+      opacity: 1;
+      background: $c2;
+    }
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
