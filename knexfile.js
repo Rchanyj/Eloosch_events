@@ -19,6 +19,10 @@ module.exports = {
     },
     seeds: {
       directory: './db/seeds'
+    },
+    pool: {
+      min: 2,
+      max: 10
     }
   },
 
