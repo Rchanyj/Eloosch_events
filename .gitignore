@@ -4,5 +4,5 @@ public/styles
 *.log
 *.sqlite3
 ideastest/
+IDEAS.md
 testDBfuncs.js
-node_modules/

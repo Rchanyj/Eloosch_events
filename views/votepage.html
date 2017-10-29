@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="../public/styles/votepage.css" type="text/css" />
 
     <script type="text/javascript" src="../public/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="../public/scripts/app.js"></script>
     <script type="text/javascript" src="../public/scripts/votepage.js"></script>
 
     <!--Calendar links-->
@@ -19,11 +18,11 @@
   </head>
 
   <body>
-    <section id="confirm_avail_form" class="centered">
-      <form action="/events/:id" action="POST">
+    <section class="centered">
+      <form id="confirm_avail_form" action="/:event_id/votes" action="POST">
         <div>
           <label><b>Your name</b></label>
-          <input type="text" placeholder="Let the fam know you're going!" name="eventName">
+          <input type="text" placeholder="Let the fam know you're going!" name="guestName">
         </div>
         <div>
           <label><b>Email</b></label>
