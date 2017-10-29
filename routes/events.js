@@ -28,7 +28,21 @@ module.exports = (DataHelpers) => {
     DataHelpers.createEvent(newEvent)
       .then((id) => res.status(200).send(id))
   })
-  router.get('/:event_id', (req, res) => {
+  //Renders voting page
+  router.get('/:event_id' (req, res) => {
+    DataHelpers.getEvent(req.params.event_id)
+    .then(event => {
+        count = DataHelpers.getTotAttendees(req.params.event_id);
+        event.count = count[0].count;
+        return event;
+      });
+    const templateVars = {
+      eventData : event
+    };
+    res.render('show_event', templateVars);
+  }
+  //Fetches event obj from db for use in calendar
+  router.get('/:event_id/json', (req, res) => {
     DataHelpers.getEvent(req.params.event_id)
       .then(event => {
         count = DataHelpers.getTotAttendees(req.params.event_id);
