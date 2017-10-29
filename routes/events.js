@@ -29,7 +29,6 @@ module.exports = (DataHelpers) => {
       .then( (id) => res.status(200).send(id))
   });
 
-
   router.get("/:event_id", (req, res) => {
     DataHelpers.getEvent(req.params.event_id)
       .then(event => res.json(event))
@@ -41,7 +40,7 @@ module.exports = (DataHelpers) => {
   });
   router.delete("/:event_id", (req, res) => {
     DataHelpers.deleteEvent(req.params.event_id)
-    
+
   });
 
   router.post("/:event_id/votes", (req, res) => {
@@ -51,7 +50,7 @@ module.exports = (DataHelpers) => {
     const votes = {
 
     name: "someName2",
-    days: { 
+    days: {
         "2017-11-01" : true,
         "2017-11-02" : true
       },
@@ -66,7 +65,7 @@ module.exports = (DataHelpers) => {
   router.put("/:event_id/votes", (req, res) => {
     const votes = {
       name: "someName2",
-      days: { 
+      days: {
           "2017-11-01" : true,
           "2017-11-02" : true
         },

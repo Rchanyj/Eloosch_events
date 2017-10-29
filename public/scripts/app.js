@@ -30,9 +30,9 @@ $(document).ready(function() {
 
   $submit.on('click', postEvent)
 
-  $lockButton.on('click', function() {
-    $(this).toggleClass('locked');
-  });
+  $lockButton.on('click', function () {
+    $(this).toggleClass('locked')
+  })
 
   $('#calendar').fullCalendar({
       //test functions:
@@ -50,4 +50,3 @@ $(document).ready(function() {
     }
   })
 })
-

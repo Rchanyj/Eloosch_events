@@ -1,13 +1,12 @@
-console.log('file loaded')
+$(document).ready(function () {
+  $('#calendar').fullCalendar()
 
-$(document).ready(function() {
-  //Toggle lock interactions test:
-  const $lockButton = $('.togglelock')
-  const $submit = $('#createEventButton')
-  const $form = $('#event-build-form form')
-  let datesArray = [];
+  const $lockButton   = $('.togglelock')
+  const $submit       = $('#createEventButton')
+  const $form         = $('#event-build-form form')
+  let datesArray      = []
 
-  function postEvent() {
+  function postEvent () {
     const queryStr = createQueryString()
     $.ajax({
       url: '/events',
@@ -16,38 +15,51 @@ $(document).ready(function() {
     })
   }
 
-  function createQueryString() {
+  function createQueryString () {
     const $email = $('#email-input')
     if (!$email.val()) {
       $email.val('null')
     }
     let data = $form.serialize();
     for (var i = 1; i < datesArray.length + 1; i++) {
-      data = data + `&date${i}=${datesArray[i-1]}`
+      data = data + `&date${i}=${datesArray[i - 1]}`
     }
-    return data;
+    return data
+  }
+
+  function addSelectedClass () {
+    const $allDays = $('#calendar').find('.fc-day')
+    $.each($allDays, function(index, value) {
+      if (datesArray.includes($(value).data('date'))) {
+        $(value).addClass('selected')
+      }
+    })
+  }
+
+  function calRefresh (event) {
+    console.log('here')
+    const dateClicked = $(this).attr('data-date')
+    const isDay = $(this).hasClass('fc-day')
+    console.log(isDay)
+    if (datesArray.includes(dateClicked) && isDay) {
+      $(this).removeClass('selected')
+      datesArray = datesArray.filter(a => a !== dateClicked)
+    } else if (isDay) {
+      datesArray.push(dateClicked)
+      $(this).addClass('selected')
+    } else {
+      addSelectedClass()
+    }
   }
 
   $submit.on('click', postEvent)
 
-  $lockButton.on('click', function() {
-    $(this).toggleClass('locked');
-  });
+  $('#calendar').on('click', '.fc-day', calRefresh)
+  $('.fc-button-group').on('click', calRefresh)
 
-  $('#calendar').fullCalendar({
-      //test functions:
-      dayClick: function(date, jsEvent, view) {
-      // toggle day color with clicks (by adding a new class to the clicked element)
-      if (!$lockButton.hasClass('locked')) {
-        const dateClicked = this[0].dataset.date;
-        if ($(this).hasClass('selected')) {
-          datesArray = datesArray.filter( a => a !== dateClicked )
-        } else {
-          datesArray.push(dateClicked)
-        };
-        $(this).toggleClass('selected');
-      }
-    }
+  $lockButton.on('click', function () {
+    $(this).toggleClass('locked')
   })
+
 })
 

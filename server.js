@@ -29,20 +29,18 @@ app.use(knexLogger(knex));
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/styles", sass({
-  src: __dirname + "/styles",
-  dest: __dirname + "/public/styles",
-  debug: true,
-  outputStyle: 'expanded'
-}));
+
 app.use(express.static("public"));
 
+app.get("/votes", (req, res) => {
+  console.log(req, ' <-- <--- <------- ', 'deanbug')
+  res.render('voting')
+})
 // Mount all resource routes
 app.use("/events", eventsRoutes);
 
 // Home page
 app.get("/", (req, res) => {
-  console.log(req);
   res.render("index");
 });
 

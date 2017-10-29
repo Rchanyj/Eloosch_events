@@ -1,0 +1,76 @@
+/*CALENDAR CALENDAR CALENDAR CALENDAR*/
+
+#calendar {
+  color: $c3;
+  width: 600px;
+}
+
+.selected {
+  background: $selected-color;
+}
+
+.fc-toolbar .fc-left {
+  color: $c3;
+}
+
+.fc-unthemed td.fc-today {
+  background: $today-color;
+  &.selected {
+    background: $selected-color;
+  }
+}
+
+.fc-day {
+  transition: all .2s ease-out;
+  &fc-past {
+    opacity: 0.9;
+  }
+  &:hover {
+    background: $cal-hover;
+  }
+  &.fc-past {
+    background: $c4;
+  }
+}
+
+td.fc-today.fc-day {
+  &:hover {
+    background: $cal-hover;
+  }
+}
+
+.fc-day-top {
+  &.fc-past {
+    opacity: 0.2;
+
+  }
+}
+
+.fc-day-top.fc-other-month {
+  opacity: .5;
+}
+
+.fc-row .fc-content-skeleton {
+  z-index: 0;
+}
+
+.fc-ltr .fc-basic-view .fc-day-top .fc-day-number {
+  font-size: .8em;
+}
+
+.fc-day-grid-container {
+  height: auto !important;
+}
+
+.fc-state-default {
+  background-image: none;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+}
+
+.fc-state-disabled {
+  opacity: 0;
+}
+
