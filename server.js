@@ -27,7 +27,6 @@ app.use(morgan('dev'))
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex))
 
-<<<<<<< HEAD
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 
