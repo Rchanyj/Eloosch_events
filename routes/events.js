@@ -26,16 +26,9 @@ module.exports = (DataHelpers) => {
     // Post to database with event info
     console.log('posting event')
     DataHelpers.createEvent(newEvent)
-<<<<<<< HEAD
-      .then( (id) => res.status(200).send(id))
-  });
-
-  router.get("/:event_id", (req, res) => {
-=======
       .then((id) => res.status(200).send(id))
   })
   router.get('/:event_id', (req, res) => {
->>>>>>> 7e25f7821261f16d8070f81e99e92c32ebf986ad
     DataHelpers.getEvent(req.params.event_id)
       .then(event => res.json(event))
   })
@@ -67,12 +60,7 @@ module.exports = (DataHelpers) => {
   })
   router.delete('/:event_id', (req, res) => {
     DataHelpers.deleteEvent(req.params.event_id)
-<<<<<<< HEAD
-
-  });
-=======
   })
->>>>>>> 7e25f7821261f16d8070f81e99e92c32ebf986ad
 
   router.post('/:event_id/votes', (req, res) => {
     // TESTER VOTING OBJECT
@@ -80,17 +68,10 @@ module.exports = (DataHelpers) => {
     // curl -X POST http://localhost:8080/events/::unique_event_id/votes
     const votes = {
 
-<<<<<<< HEAD
-    name: "someName2",
-    days: {
-        "2017-11-01" : true,
-        "2017-11-02" : true
-=======
       name: 'someName2',
       days: {
         '2017-11-01': true,
         '2017-11-02': true
->>>>>>> 7e25f7821261f16d8070f81e99e92c32ebf986ad
       },
       hash: '',
       email: 'address'
@@ -102,16 +83,6 @@ module.exports = (DataHelpers) => {
   })
   router.put('/:event_id/votes', (req, res) => {
     const votes = {
-<<<<<<< HEAD
-      name: "someName2",
-      days: {
-          "2017-11-01" : true,
-          "2017-11-02" : true
-        },
-      hash: "8Q4ggFAphR6HbkPi",
-      email: "address",
-      }
-=======
       name: 'someName2',
       days: {
         '2017-11-01': true,
@@ -120,7 +91,6 @@ module.exports = (DataHelpers) => {
       hash: '8Q4ggFAphR6HbkPi',
       email: 'address'
     }
->>>>>>> 7e25f7821261f16d8070f81e99e92c32ebf986ad
     // Edit votes in database
     DataHelpers.editVotes(req.params.event_id, votes)
       .then(edit => console.log(edit))
