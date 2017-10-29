@@ -33,7 +33,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.get("/votes", (req, res) => {
-  console.log(req, ' <-- <--- <------- ', 'deanbug')
   res.render('voting')
 })
 
