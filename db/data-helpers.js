@@ -38,13 +38,13 @@ module.exports = function makeDataHelpers (knex) {
         .select(
           'events.name as event_name',
           'events.creator',
-          'persons.name',
+          'persons.name as person_name',
           'event_days.event_date',
           'event_days.event_start',
           'event_days.event_end',
-          'persons.id',
+          'persons.id as person_id',
           'persons.email',
-          'persons.hash',
+          'persons.hash as person_hash',
           'person_event_days.vote'
         )
         .where('events.event_link_id', eventId)
@@ -54,19 +54,17 @@ module.exports = function makeDataHelpers (knex) {
             name: eventDays[0].event_name,
             creator: eventDays[0].creator
           }
-          eventDays.map(daysVotedOn => {
-            if (!eventData.votes[daysVotedOn.id]) {
-              eventData.votes[daysVotedOn.id] = {
-                id: daysVotedOn.hash,
-                name: daysVotedOn.name,
+          eventDays.forEach(eventDay => {
+            if (!eventData.votes[eventDay.person_id]) {
+              eventData.votes[eventDay.person_id] = {
+                id: eventDay.person_hash,
+                name: eventDay.person_name,
                 days: {}
               }
             }
-            if (eventData.votes[daysVotedOn.person_id]) {
-              eventData.votes[daysVotedOn.person_id].days
-                [ daysVotedOn.event_date.toISOString().slice(0, 10) ] =
-                daysVotedOn.vote
-            }
+            eventData.votes[eventDay.person_id].days
+              [ eventDay.event_date.toISOString().slice(0, 10) ] =
+                eventDay.vote
           })
           return eventData
         })

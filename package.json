@@ -39,6 +39,8 @@
     "sha1": "^1.1.1"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1",
     "nodemon": "^1.9.2",
     "sqlite3": "^3.1.4"
   }
