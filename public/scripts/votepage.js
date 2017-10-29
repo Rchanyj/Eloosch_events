@@ -146,21 +146,27 @@ $(document).ready(function() {
   //Create new event data to submit
   function createEventUpdate() {
     var newEvent = {};
+    var eventDays = daysArray.map(function(day) {
+        day = {
+          event_date: day,
+          event_start: '0000',
+          event_end: '0000'
+        }
+      });
     newEvent = {
-     name: input.eventName,
-     creator: input.creator,
-     days : [
-
-    ]}
+      name: input.eventName,
+      creator: input.creator,
+      days : eventDays
+    ]};
   }
 
   //Updates event dates in db, renders new event dates
   function updateEvent() {
-    //const votesData = createVotesData();
+    const eventUpdate = createEventUpdate();
     $.ajax({
       url: '/:event_id',
       method: 'PUT',
-      data: //votesData
+      data: eventUpdate
     }).done(function () {
       loadEvent();
       $form.addClass('locked');
