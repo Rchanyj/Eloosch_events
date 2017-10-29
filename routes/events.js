@@ -30,11 +30,6 @@ module.exports = (DataHelpers) => {
   })
   router.get('/:event_id', (req, res) => {
     DataHelpers.getEvent(req.params.event_id)
-      .then(event => {
-        count = DataHelpers.getTotAttendees(req.params.event_id);
-        event.count = count[0].count;
-        return event;
-      })
       .then(event => res.json(event))
   })
   router.put('/:event_id', (req, res) => {

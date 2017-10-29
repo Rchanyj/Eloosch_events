@@ -198,8 +198,9 @@ module.exports = function makeDataHelpers (knex) {
           return knex('events').where('event_link_id', eventID).del()
         })
     },    
-    getTotAttendees: (eventID) => {      
-      eventAttendeesCount = 
+    //getTotAttendees: (eventID) => { 
+      getTotAttendees: function(eventID)  {     
+      eventAttendeesCount = await 
         knex('events').countDistinct('person_event_days.person_id')
           .innerJoin('event_days', 'events.id', 'event_days.event_id')
           .innerJoin('person_event_days', 'event_days.id', 'person_event_days.event_day')
