@@ -1,0 +1,83 @@
+@mixin form-input() {
+  width: 350px;
+  background: rgba(0,0,0,0);
+  border: none;
+  border-image: none;
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(to right, rgba(189,189,189,.5) 0%, rgba(189,189,189,1) 20%, rgba(189,189,189,1) 80%, rgba(189,189,189,0) 100%);
+  border-image-slice: 1;
+  &::placeholder {
+    transition: all .2s ease-out;
+  }
+  &:focus {
+    outline: none;
+      border-image-slice: 1;
+    &::placeholder {
+      color: $form-color;
+      opacity: .8;
+    }
+  }
+}
+
+/*  FORM FORM FORM FORM FORM  */
+
+#event-build-form {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  * {
+    font-size: $form-font-size;
+    color: $form-color;
+  }
+
+  .form-input {
+    margin-bottom: 1em;
+
+    p {
+      margin: 0;
+      display: inline-block;
+
+      &:first-of-type {
+        width: 6.5em;
+      }
+    }
+
+    input {
+      @include form-input();
+    }
+  }
+}
+
+#event-edit-form {
+  @extend #event-build-form;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
