@@ -26,9 +26,29 @@ module.exports = (DataHelpers) => {
     // Post to database with event info
     console.log('posting event')
     DataHelpers.createEvent(newEvent)
+<<<<<<< HEAD
       .then((id) => res.status(200).send(id))
   })
   router.get('/:event_id', (req, res) => {
+=======
+      .then( (id) => res.status(200).send(id))
+  })
+  //Renders voting page
+  router.get('/:event_id' (req, res) => {
+    DataHelpers.getEvent(req.params.event_id)
+    .then(event => {
+        count = DataHelpers.getTotAttendees(req.params.event_id);
+        event.count = count[0].count;
+        return event;
+      });
+    const templateVars = {
+      eventData : event
+    };
+    res.render('show_event', templateVars);
+  }
+  //Fetches event obj from db for use in calendar
+  router.get('/:event_id/json', (req, res) => {
+>>>>>>> 85a93eb65870ca46bab25b27c77cc73a97037165
     DataHelpers.getEvent(req.params.event_id)
       .then(event => res.json(event))
   })
@@ -61,13 +81,19 @@ module.exports = (DataHelpers) => {
   router.delete('/:event_id', (req, res) => {
     DataHelpers.deleteEvent(req.params.event_id)
   })
+<<<<<<< HEAD
 
+=======
+>>>>>>> 85a93eb65870ca46bab25b27c77cc73a97037165
   router.post('/:event_id/votes', (req, res) => {
     // TESTER VOTING OBJECT
     // REMOVE THIS WHEN USING
     // curl -X POST http://localhost:8080/events/::unique_event_id/votes
     const votes = {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 85a93eb65870ca46bab25b27c77cc73a97037165
       name: 'someName2',
       days: {
         '2017-11-01': true,
