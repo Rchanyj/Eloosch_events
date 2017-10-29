@@ -2,7 +2,7 @@ $(document).ready(function () {
   $('#calendar').fullCalendar()
 
   const $lockButton   = $('.togglelock')
-  const $submit       = $('#createEventButton')
+  const $submit       = $('#create-event-button')
   const $form         = $('#event-build-form form')
   let datesArray      = []
 
