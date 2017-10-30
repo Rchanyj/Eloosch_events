@@ -81,11 +81,6 @@ const domain = 'localhost:8080'
     addSelectedClass(datesArray, 'selected')
   }
 
-  $submit.on('click', postEvent)
-
-  $('#calendar').on('click', '.fc-day', calRefresh)
-  $('.fc-right').on('click', calRefresh)
-
   $lockButton.on('click', function () {
     $(this).toggleClass('locked')
   })
@@ -94,7 +89,7 @@ const domain = 'localhost:8080'
   // ---------------------------------------------------
 
   /*====================================================*/
-    // USER /CALENDAR INTERACTIONS //
+    // USER / CALENDAR INTERACTIONS //
   /*====================================================*/
     //render event (name, highlights)
     function renderEvent(event) {
@@ -106,14 +101,15 @@ const domain = 'localhost:8080'
           return
         } else {
           for(date in event.votes[guest].days) {
-            const eventObj = {
-            title: event.votes[guest].name,
-            allDay: true,
-            start: date,
-            eventOrder: 'title'
-            };
-            console.log($('#calendar'))
-            $('#calendar').fullCalendar('renderEvent', eventObj, true);
+            if(event.votes[guest].days.date == true) {
+              const eventObj = {
+              title: event.votes[guest].name,
+              allDay: true,
+              start: date,
+              eventOrder: 'title'
+              }
+              $('#calendar').fullCalendar('renderEvent', eventObj, true);
+            }
           }
         }
       }
@@ -247,6 +243,21 @@ const domain = 'localhost:8080'
     //=============================================================/
     // BUTTON EVENTS //
     //=============================================================/
+
+      $submit.on('click', function () {
+        if(!$('#eventName').val() && datesArray.length === 0) {
+            return alert('Please provide a name and date(s)!');
+          } else if (!$('#eventName').val()) {
+            return alert('Please let us know who you are!');
+          } else if (datesArray.length ===0) {
+            return alert('Your event needs a day (or more)!');
+          } else {
+            postEvent;
+          }
+        }
+
+      $('#calendar').on('click', '.fc-day', calRefresh)
+      $('.fc-right').on('click', calRefresh)
 
       //Upon form submit (pressing the 'confirm avail' button), trigger POST;
       $submitVote.on('click', function () {
