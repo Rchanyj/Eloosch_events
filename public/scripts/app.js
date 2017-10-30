@@ -8,10 +8,10 @@ let voteDates       = []
 // voting variables
 const $submitVote = $('#confirm_avail')
 const $voteForm = $('#confirm_avail_form')
+const $confirmChanges = $('#confirm_changes')
 var dates = {}
 const eventId = window.location.pathname;
 const domain = 'localhost:8080'
-
 
   $('#calendar').fullCalendar({
     dayClick: function(date, jsEvent, view) {
@@ -93,10 +93,21 @@ const domain = 'localhost:8080'
   /*====================================================*/
     //render event (name, highlights)
     function renderEvent(event) {
+
       //select (highlight) dates in db event entry
       window.refreshEventDays()
       // render each guest name and their votes
       for (guest in event.votes) {
+        if (event.votes[guest].id === localStorage.userId){
+          console.log($confirmChanges);
+          $voteForm.addClass('locked');
+          //Confirm button disappears:
+          $submitVote.hide();
+          $confirmChanges.show();
+          //Edit button appears
+          $('#edit_avail').show();
+
+        }
         if (guest === 'null'){
           return
         } else {
@@ -280,7 +291,7 @@ const domain = 'localhost:8080'
         //hides edit button, reveals confirm and cancel buttons:
         $(this).hide();
         $('#cancel_edit').show();
-        $('#confirm_changes').show();
+        $confirmChanges.show();
       });
 
       //Upon clicking 'cancel', discard the changes, render the previous page state without reloading
@@ -289,7 +300,7 @@ const domain = 'localhost:8080'
       });
 
       //Upon clicking 'confirm changes', the data should OVERWRITE the old selections
-      $('#confirm_changes').on('click', function() {
+      $confirmChanges.on('click', function() {
         updateVotes();
       });
 
