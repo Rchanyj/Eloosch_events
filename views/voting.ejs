@@ -17,25 +17,27 @@
 
       <div class="button"><div  id='confirm_avail'>Submit</div></div>
     </form>
+    <div>
+      <div class="button voting-page"><div hidden id='edit_avail'>Edit availability</div></div>
+
+      <div>
+        <div class="button voting-page"><div hidden id='cancel_edit'>Cancel changes</div></div>
+
+        <div class="button voting-page"><div hidden id='confirm_changes'>Confirm changes</div></div>
+      </div>
+      <div class="button voting-page"><div hidden id='confirm_event_changes'>Confirm Event Changes</div></div>
+
+      <div><div hidden id="edit-event">Edit Event</div></div>
+    </div>
   </section>
 </div>
-
-<div class="button"><div hidden id='edit_avail'>Edit availability</div></div>
-
-<div class="button"><div hidden id='cancel_edit'>Cancel changes</div></div>
-
-<div class="button"><div hidden id='confirm_changes'>Confirm changes</div></div>
-
-<div class="button"><div hidden id='confirm_event_changes'>Confirm Event Changes</div></div>
 
 <div class='invite' id='invite'>
   <p style="text-align: center;"><script>$('.invite p').append(window.location.href)</script></p>
   <div class="button"><div hidden id='invite_button'>Invite more peeps</div></div>
 </div>
 
-<div>
-  <div hidden id="edit-event">Edit Event</div>
-</div>
+
 
 <% include ./parts/_footer %>
 

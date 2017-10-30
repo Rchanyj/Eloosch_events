@@ -29,15 +29,22 @@
   &fc-past {
     opacity: 0.9;
   }
-  &:hover {
-    background: $cal-hover;
-  }
   &.fc-past {
     background: $c4;
   }
+  &.creating {
+    &:hover {
+      background: $cal-hover;
+    }
+  }
+  &.event-day.voting-enabled {
+    &:hover {
+      background: $cal-hover;
+    }
+  }
 }
 
-td.fc-today.fc-day {
+td.fc-today.fc-day.creating {
   &:hover {
     background: $cal-hover;
   }

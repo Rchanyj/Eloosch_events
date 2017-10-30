@@ -17,7 +17,6 @@ const domain = 'localhost:8080'
     dayClick: function(date, jsEvent, view) {
       if (!$voteForm.hasClass('locked')) {
         const dateClicked = this[0].dataset.date;
-        console.log(dateClicked);
         if ($(this).hasClass('selected')) {
           voteDates = voteDates.filter( a => a !== dateClicked );
         } else {
@@ -94,9 +93,7 @@ const domain = 'localhost:8080'
   /*====================================================*/
     //render event (name, highlights)
     function renderEvent(event) {
-      console.log(event);
       for( day of event.event.days ) {
-        console.log(day);
         dates[day] = false;
       }
       //select (highlight) dates in db event entry
@@ -146,6 +143,8 @@ const domain = 'localhost:8080'
 
     if(window.location.pathname !== '/') {
       loadEvent()
+    } else if(window.location.pathname === '/') {
+      $('.fc-day.fc-future, .fc-today').addClass('creating')
     }
 
     serialize = function(obj) {
@@ -167,7 +166,6 @@ const domain = 'localhost:8080'
         voteDates.forEach(function (date) {
           dates[date] = true;
         });
-        console.log(voteDates);
         const name = $('#guestName').val()
         let votes = {
           name,
@@ -187,9 +185,7 @@ const domain = 'localhost:8080'
           data: votesData,
           dataType: 'json'
         }).done(function(id){
-          console.log(id);
           localStorage.userId = id
-          console.log("submited");
           //load event cal with user's newly submitted avail
           loadEvent();
           //lock fields
@@ -286,22 +282,23 @@ const domain = 'localhost:8080'
 
       $('#edit_avail').on('click', function() {
         //unlocks field for editing:
-        $voteForm.removeClass('locked');
+        $voteForm.removeClass('locked')
+        $('.event-day').addClass('voting-enabled')
         //hides edit button, reveals confirm and cancel buttons:
-        $(this).hide();
-        $('#cancel_edit').show();
-        $confirmChanges.show();
+        $(this).hide()
+        $('#cancel_edit').show()
+        $confirmChanges.show()
       });
 
       //Upon clicking 'cancel', discard the changes, render the previous page state without reloading
       $('#cancel_edit').on('click', function() {
-        returnPrevious();
+        returnPrevious()
       });
 
       //Upon clicking 'confirm changes', the data should OVERWRITE the old selections
       $confirmChanges.on('click', function() {
-        $(this).hide();
-        updateVotes();
+        $(this).hide()
+        updateVotes()
       });
 
     /* ======================================================== */
