@@ -30,6 +30,7 @@ $(document).ready(function () {
     for (var i = 1; i < datesArray.length + 1; i++) {
       data = data + `&date${i}=${datesArray[i - 1]}`
     }
+    console.log(localStorage.userId);
     data += `&creatorId=${localStorage.userId}`
     return data
   }
