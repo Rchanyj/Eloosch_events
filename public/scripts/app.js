@@ -29,7 +29,6 @@ const domain = 'localhost:8080'
   })
 
   function postEvent (event) {
-    event.preventDefault()
     const queryStr = createQueryString()
     $.ajax({
       url: '/events',
@@ -39,8 +38,7 @@ const domain = 'localhost:8080'
     .done((res) => {
       localStorage.userId = res.creatorId
 
-      const url = '/events/' + res.newEventId;
-      console.log(url)
+      const url = '/events/' + res.newEventId
       window.location.href = url
     })
   }
@@ -252,9 +250,9 @@ const domain = 'localhost:8080'
           } else if (datesArray.length ===0) {
             return alert('Your event needs a day (or more)!');
           } else {
-            postEvent;
+            postEvent();
           }
-        }
+        })
 
       $('#calendar').on('click', '.fc-day', calRefresh)
       $('.fc-right').on('click', calRefresh)
