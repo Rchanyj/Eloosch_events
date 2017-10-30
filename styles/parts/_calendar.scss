@@ -5,12 +5,12 @@
   width: 600px;
 }
 
-.selected {
+.selected.selected {
   background: $selected-color;
 }
 
 .event-day {
-  background: #dff2fb;
+  background: rgba(223,242,251,0.53);
 }
 
 .fc-toolbar .fc-left {

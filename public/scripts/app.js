@@ -102,7 +102,9 @@ const domain = 'localhost:8080'
       window.refreshEventDays()
       // render each guest name and their votes
       for (guest in event.votes) {
-        if (!guest){
+        if (guest === 'null'){
+          return
+        } else {
           for(date in event.votes[guest].days) {
             const eventObj = {
             title: event.votes[guest].name,
@@ -110,6 +112,7 @@ const domain = 'localhost:8080'
             start: date,
             eventOrder: 'title'
             };
+            console.log($('#calendar'))
             $('#calendar').fullCalendar('renderEvent', eventObj, true);
           }
         }
