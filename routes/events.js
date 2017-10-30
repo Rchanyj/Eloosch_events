@@ -21,12 +21,15 @@ module.exports = (DataHelpers) => {
     const newEvent = {
       name: input.eventName,
       creator: input.creator,
+      creatorId: input.creatorId,
       days
     }
     // Post to database with event info
     console.log('posting event')
     DataHelpers.createEvent(newEvent)
-      .then((id) => res.status(200).send(id))
+      .then((ids) => {
+        res.status(200).json(ids)
+      })
   })
 
   // Renders voting page
@@ -41,7 +44,6 @@ module.exports = (DataHelpers) => {
   })
   // Fetches event obj from db for use in calendar
   router.get('/:event_id/json', (req, res) => {
-    console.log('Gettig json')
     DataHelpers.getEvent(req.params.event_id)
       .then(event => res.json(event))
   })
@@ -91,8 +93,7 @@ module.exports = (DataHelpers) => {
     }
     // Post votes to database
     DataHelpers.submitVotes(req.params.event_id, votes)
-      .then(post => res.json(post))
-    // Callback res.render("/events/:id")
+      .then(id => res.json(id))
   })
   router.put('/:event_id/votes', (req, res) => {
     const votes = {
