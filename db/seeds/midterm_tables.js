@@ -25,17 +25,17 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       return knex('event_days').insert([
         // Inserts seed entries
-        {event_id: 1, event_date: '2017-10-26',
+        {event_id: 1, event_date: '2017-11-26',
          event_start: '12:25:00', event_end: '13:45:00'},
-         {event_id: 1, event_date: '2017-10-27',
+         {event_id: 1, event_date: '2017-11-27',
          event_start: '12:25:00', event_end: '13:45:00'},
-         {event_id: 1, event_date: '2017-10-28',
+         {event_id: 1, event_date: '2017-11-28',
          event_start: '12:25:00', event_end: '13:45:00'},
          // next event
-         {event_id: 2, event_date: '2017-10-29',
+         {event_id: 2, event_date: '2017-11-15',
          event_start: '09:00:00', event_end: '11:30:00'},
          //next event
-        {event_id: 3, event_date: '2017-10-30',
+        {event_id: 3, event_date: '2017-11-04',
         event_start: '12:00:00', event_end: '16:00:00'},
         {event_id: 3, event_date: '2017-11-06',
         event_start: '08:15:00', event_end: '10:30:00'}
