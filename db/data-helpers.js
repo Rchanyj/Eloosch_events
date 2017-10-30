@@ -3,11 +3,12 @@ const { randomKey } = require('./math')
 module.exports = function makeDataHelpers (knex) {
   return {
     createEvent: event => {
+      console.log(event);
       const newEventId = randomKey()
       const creatorId =
-        event.creatorId !== 'undefined' ? event.creatorId : randomKey()
-      console.log(typeof event.creatorId)
-      console.log(typeof creatorId)
+        (event.creatorId === undefined || event.creatorId === 'undefined') ? randomKey() : event.creatorId
+      console.log(event.creatorId)
+      console.log(creatorId)
       return knex
         .insert(
           {
@@ -24,7 +25,7 @@ module.exports = function makeDataHelpers (knex) {
           return knex.batchInsert('event_days', event.days, event.days.length)
         })
         .then(() => {
-          if (event.creatorId === 'undefined') {
+          if (event.creatorId === 'undefined' || event.creatorId === undefined) {
             return knex
               .insert(
                 {
@@ -166,8 +167,8 @@ module.exports = function makeDataHelpers (knex) {
         })
     },
     submitVotes: (eventId, votes) => {
-      const hashId = votes.hash !== 'undefined' ? votes.hash : randomKey()
-      if (votes.hash === 'undefined') {
+      const hashId = (votes.hash === undefined || votes.hash === 'undefined') ? randomKey() : votes.hash
+      if (votes.hash === undefined) {
         return knex
           .insert(
             {
@@ -178,15 +179,18 @@ module.exports = function makeDataHelpers (knex) {
             'id'
           )
           .into('persons')
-          .then(id => insertVotes(id))
+          .then(res => insertVotes(res.id))
       }
       return knex('persons')
         .select('id')
         .where('hash', votes.hash)
-        .first()
-        .then(id => insertVotes(id))
+        .then(res => {
+          console.log("FOUND PERSON ID" + res);
+          insertVotes(res[0].id)
+        })
 
       function insertVotes (id) {
+        console.log("INSERT VOTES ID: " +id);
         return knex('events')
           .join('event_days', 'events.id', 'event_days.event_id')
           .select('*')

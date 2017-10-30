@@ -77,16 +77,8 @@ module.exports = (DataHelpers) => {
   router.delete('/:event_id', (req, res) => {
     DataHelpers.deleteEvent(req.params.event_id)
   })
-  router.post('/:event_id/votes', (req, res) => {
-<<<<<<< HEAD
-=======
-    // TESTER VOTING OBJECT
-    // REMOVE THIS WHEN USING
-    // curl -X POST http://localhost:8080/events/::unique_event_id/votes
-    // Post votes to database
-    console.log(req.body)
 
->>>>>>> 65c3ddebece6eb9d0de9f5fb5303ff91f81cf19a
+  router.post('/:event_id/votes', (req, res) => {
     DataHelpers.submitVotes(req.params.event_id, req.body)
       .then(id => res.json(id))
   })
