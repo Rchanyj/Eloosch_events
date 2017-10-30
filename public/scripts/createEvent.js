@@ -7,6 +7,7 @@ $(document).ready(function () {
   let datesArray      = []
 
   function postEvent () {
+    debugger
     const queryStr = createQueryString()
     $.ajax({
       url: '/events',
@@ -27,6 +28,7 @@ $(document).ready(function () {
       $email.val('null')
     }
     let data = $form.serialize();
+    console.log("<--------- " + data);
     for (var i = 1; i < datesArray.length + 1; i++) {
       data = data + `&date${i}=${datesArray[i - 1]}`
     }

@@ -6,8 +6,8 @@ module.exports = function makeDataHelpers (knex) {
       const newEventId = randomKey()
       const creatorId =
         event.creatorId !== 'undefined' ? event.creatorId : randomKey()
-      console.log(event.creatorId)
-      console.log(creatorId)
+      console.log(typeof event.creatorId)
+      console.log(typeof creatorId)
       return knex
         .insert(
           {

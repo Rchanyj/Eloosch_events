@@ -34,10 +34,12 @@ const domain = 'localhost:8080'
       url: '/events',
       method: 'POST',
       data: queryStr
-    }).done((res) => {
-      console.log(res)
-      // $.ajax({
-      // })
+    }).done( ids => {
+      localStorage.userId = ids.creatorId
+      $.ajax({
+        url: `/events/${ids.newEventId}/json`,
+        method: 'GET'
+      }).done( res => renderEvent(res))
     })
   }
 
@@ -50,6 +52,7 @@ const domain = 'localhost:8080'
     for (var i = 1; i < datesArray.length + 1; i++) {
       data = data + `&date${i}=${datesArray[i - 1]}`
     }
+    data += `&creatorId=${localStorage.userId}`
     return data
   }
 
