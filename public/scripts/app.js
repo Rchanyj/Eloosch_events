@@ -99,9 +99,7 @@ if (localStorage.userId){
   /*====================================================*/
     //render event (name, highlights)
     function renderEvent(event) {
-      console.log(event);
       for( day of event.event.days ) {
-        console.log(day);
         dates[day] = false;
       }
       //select (highlight) dates in db event entry
@@ -213,7 +211,7 @@ if (localStorage.userId){
           voteDates = [];
           //locks fields again
           $voteForm.addClass('locked');
-          $(this).hide();
+          $('#cancel_edit').hide();
           $('#confirm_changes').hide();
           $('#edit_avail').show();
         };
