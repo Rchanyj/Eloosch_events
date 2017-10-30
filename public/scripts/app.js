@@ -35,7 +35,8 @@ const domain = 'localhost:8080'
       url: '/events',
       method: 'POST',
       data: queryStr
-    }).done((res) => {
+    })
+    .done((res) => {
       const url = '/events/' + res.newEventId;
       console.log(url)
       window.location.href = url

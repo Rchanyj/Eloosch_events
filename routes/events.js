@@ -5,6 +5,8 @@ const router = express.Router()
 // Move knex to DataHelper.js
 
 module.exports = (DataHelpers) => {
+
+
   router.post('/', (req, res) => {
     const input = req.body
     const days = []
@@ -27,6 +29,7 @@ module.exports = (DataHelpers) => {
     // Post to database with event info
     DataHelpers.createEvent(newEvent)
       .then((ids) => {
+        console.log(ids.newEventId)
         res.status(200).json(ids)
       })
   })
