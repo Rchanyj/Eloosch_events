@@ -52,28 +52,7 @@ module.exports = (DataHelpers) => {
 
   router.put('/:event_id', (req, res) => {
     // Edit event info
-    const event = {
-      name: 'CHANGED!',
-      creator: 'fllf,sf,56355ndjsdfn8ksfnsdfnn32nnsdjnjsdfn',
-      days: [
-        {
-          event_date: '2017-11-02',
-          event_start: '0000',
-          event_end: '0000'
-        },
-        {
-          event_date: '2017-11-03',
-          event_start: '0000',
-          event_end: '0000'
-        },
-        {
-          event_date: '2017-11-10',
-          event_start: '0000',
-          event_end: '0000'
-        }
-      ]
-    }
-    DataHelpers.editEvent(req.params.event_id, event)
+    DataHelpers.editEvent(req.params.event_id, req.body)
       .then(data => res.json(data))
   })
 
@@ -88,8 +67,8 @@ module.exports = (DataHelpers) => {
   router.put('/:event_id/votes', (req, res) => {
 
     // Edit votes in database
-    DataHelpers.editVotes(req.params.event_id, votes)
-      .then(edit => console.log(edit))
+    DataHelpers.editVotes(req.params.event_id, req.body)
+      .then(edit => res.json(edit))
   })
 
   return router

@@ -17,6 +17,7 @@ const domain = 'localhost:8080'
     dayClick: function(date, jsEvent, view) {
       if (!$voteForm.hasClass('locked')) {
         const dateClicked = this[0].dataset.date;
+        console.log(dateClicked);
         if ($(this).hasClass('selected')) {
           voteDates = voteDates.filter( a => a !== dateClicked );
         } else {
@@ -93,17 +94,20 @@ const domain = 'localhost:8080'
   /*====================================================*/
     //render event (name, highlights)
     function renderEvent(event) {
-
+      console.log(event);
+      for( day of event.event.days ) {
+        console.log(day);
+        dates[day] = false;
+      }
       //select (highlight) dates in db event entry
       window.refreshEventDays()
       // render each guest name and their votes
       for (guest in event.votes) {
         if (event.votes[guest].id === localStorage.userId){
-          console.log($confirmChanges);
+          $voteForm.hide();
           $voteForm.addClass('locked');
           //Confirm button disappears:
           $submitVote.hide();
-          $confirmChanges.show();
           //Edit button appears
           $('#edit_avail').show();
 
@@ -133,9 +137,6 @@ const domain = 'localhost:8080'
         method: 'GET',
         url: `${eventId}/json`
       }).done(function(event) {
-        for( day of event.event.days ) {
-          dates[day] = false;
-        }
         window.refreshEventDays = function() {
           addSelectedClass(event.event.days, 'event-day')
         }
@@ -158,7 +159,7 @@ const domain = 'localhost:8080'
 
       //Create string of voter data for ajax to submit to db
         //Submit an object of selected dates, with date : true
-      function createVotesData() {
+      function createVotesData(event) {
         let email = $('#email-input').val();
         if (!email) {
           email = null;
@@ -166,6 +167,7 @@ const domain = 'localhost:8080'
         voteDates.forEach(function (date) {
           dates[date] = true;
         });
+        console.log(voteDates);
         const name = $('#guestName').val()
         let votes = {
           name,
@@ -203,29 +205,26 @@ const domain = 'localhost:8080'
       // CANCEL EDIT ---------------------------------/
       //discards selected fields, re-renders the previous state of the page
       function returnPrevious() {
-        $.ajax({
-          url: `/${eventId}`,
-          method: 'GET',
-        }).done(function() {
-          //render previous state
+          $("#calendar").fullCalendar('removeEvents')
           loadEvent();
+          voteDates = [];
           //locks fields again
           $voteForm.addClass('locked');
           $(this).hide();
           $('#confirm_changes').hide();
           $('#edit_avail').show();
-        });
-      }
+        };
 
       //Submit updated availability -----------------------
       //Submits a PUT request that OVERWRITES old entries for that particular user/date
       function updateVotes() {
         const votesData = createVotesData();
         $.ajax({
-          url: `/${eventId}/votes`,
+          url: `${eventId}/votes`,
           method: 'PUT',
           data: votesData
         }).done(function () {
+          $('#calendar').fullCalendar('removeEvents')
           loadEvent();
           $voteForm.addClass('locked');
           $(this).hide();
@@ -301,6 +300,7 @@ const domain = 'localhost:8080'
 
       //Upon clicking 'confirm changes', the data should OVERWRITE the old selections
       $confirmChanges.on('click', function() {
+        $(this).hide();
         updateVotes();
       });
 
