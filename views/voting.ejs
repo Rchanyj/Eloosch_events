@@ -1,6 +1,9 @@
 <% include ./parts/_head %>
 <% include ./parts/_header %>
-
+<div class='invite' id='invite'>
+    <p style="text-align: center;"><script>$('.invite p').append(window.location.href)</script></p>
+    <div class="button"><div hidden id='invite_button'>Invite more peeps</div></div>
+  </div>
 <div class="container-flex-wrap med-margin-top">
   <div id='calendar'></div>
 
@@ -31,12 +34,6 @@
     </div>
   </section>
 </div>
-
-<div class='invite' id='invite'>
-  <p style="text-align: center;"><script>$('.invite p').append(window.location.href)</script></p>
-  <div class="button"><div hidden id='invite_button'>Invite more peeps</div></div>
-</div>
-
 
 
 <% include ./parts/_footer %>

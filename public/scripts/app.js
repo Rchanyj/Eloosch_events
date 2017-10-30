@@ -20,7 +20,7 @@ if (localStorage.userId){
 
   $('#calendar').fullCalendar({
     dayClick: function(date, jsEvent, view) {
-      if (!$voteForm.hasClass('locked')) {
+      if (!$voteForm.hasClass('locked') && $(this).hasClass('event-day')) {
         const dateClicked = this[0].dataset.date;
         if ($(this).hasClass('selected')) {
           voteDates = voteDates.filter( a => a !== dateClicked );
@@ -72,6 +72,8 @@ if (localStorage.userId){
 
 
   function calRefresh (event) {
+    $('#calendar').fullCalendar('removeEvents')
+    loadEvent()
     const dateClicked = $(this).attr('data-date')
     const isDay = $(this).hasClass('fc-day')
     if (datesArray.includes(dateClicked) && isDay) {
