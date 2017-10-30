@@ -167,6 +167,7 @@ module.exports = function makeDataHelpers (knex) {
         })
     },
     submitVotes: (eventId, votes) => {
+      console.log(votes);
       const hashId = (votes.hash === undefined || votes.hash === 'undefined') ? randomKey() : votes.hash
       if (votes.hash === undefined) {
         return knex
@@ -174,23 +175,23 @@ module.exports = function makeDataHelpers (knex) {
             {
               name: votes.name,
               email: votes.email,
-              hash: randomKey()
+              hash: hashId
             },
             'id'
           )
           .into('persons')
-          .then(res => insertVotes(res.id))
+          .then(res => insertVotes(res))
       }
       return knex('persons')
         .select('id')
         .where('hash', votes.hash)
         .then(res => {
           console.log("FOUND PERSON ID" + res);
-          insertVotes(res[0].id)
+          return insertVotes(res[0].id)
         })
 
       function insertVotes (id) {
-        console.log("INSERT VOTES ID: " +id);
+        console.log("INSERT VOTES ID: " + id);
         return knex('events')
           .join('event_days', 'events.id', 'event_days.event_id')
           .select('*')

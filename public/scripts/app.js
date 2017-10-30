@@ -176,9 +176,11 @@ const domain = 'localhost:8080'
           url: `${eventId}/votes`, // need to know event id [URL]
           method: 'POST',
           data: votesData,
-          // dataType: 'json'
+          dataType: 'json'
         }).done(function(id){
+          console.log(id);
           localStorage.userId = id
+          console.log("submited");
           //load event cal with user's newly submitted avail
           loadEvent();
           //lock fields
