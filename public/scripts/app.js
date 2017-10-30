@@ -28,16 +28,17 @@ const domain = 'localhost:8080'
     eventLimit: true //displays events without stretching box size
   })
 
-  function postEvent () {
+  function postEvent (event) {
+    event.preventDefault()
     const queryStr = createQueryString()
     $.ajax({
       url: '/events',
       method: 'POST',
       data: queryStr
     }).done((res) => {
-      console.log(res)
-      // $.ajax({
-      // })
+      const url = '/events/' + res.newEventId;
+      console.log(url)
+      window.location.href = url
     })
   }
 
@@ -134,7 +135,9 @@ const domain = 'localhost:8080'
       })
     }
 
-    loadEvent()
+    if(window.location.pathname !== '/') {
+      loadEvent()
+    }
 
     serialize = function(obj) {
       var str = [];

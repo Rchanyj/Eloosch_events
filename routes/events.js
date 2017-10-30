@@ -38,6 +38,7 @@ module.exports = (DataHelpers) => {
         const templateVars = {
           eventData: event
         }
+        console.log('here')
         res.render('voting', templateVars)
       })
   })
@@ -82,7 +83,6 @@ module.exports = (DataHelpers) => {
     // REMOVE THIS WHEN USING
     // curl -X POST http://localhost:8080/events/::unique_event_id/votes
     // Post votes to database
-    console.log(req.body)
 
     DataHelpers.submitVotes(req.params.event_id, req.body)
       .then(id => res.json(id))
