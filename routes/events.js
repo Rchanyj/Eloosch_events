@@ -40,7 +40,6 @@ module.exports = (DataHelpers) => {
         const templateVars = {
           eventData: event
         }
-        console.log('here')
         res.render('voting', templateVars)
       })
   })

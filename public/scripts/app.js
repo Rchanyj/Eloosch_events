@@ -13,6 +13,11 @@ var dates = {}
 const eventId = window.location.pathname;
 const domain = 'localhost:8080'
 
+if (localStorage.userId){
+  $(".form-input").hide();
+  $("#event-name").show();
+}
+
   $('#calendar').fullCalendar({
     dayClick: function(date, jsEvent, view) {
       if (!$voteForm.hasClass('locked')) {
@@ -187,6 +192,7 @@ const domain = 'localhost:8080'
         }).done(function(id){
           localStorage.userId = id
           //load event cal with user's newly submitted avail
+          $("#calendar").fullCalendar('removeEvents')
           loadEvent();
           //lock fields
           $voteForm.addClass('locked');
@@ -206,7 +212,7 @@ const domain = 'localhost:8080'
           voteDates = [];
           //locks fields again
           $voteForm.addClass('locked');
-          $(this).hide();
+          $('#cancel_edit').hide();
           $('#confirm_changes').hide();
           $('#edit_avail').show();
         };
@@ -251,9 +257,9 @@ const domain = 'localhost:8080'
     //=============================================================/
 
       $submit.on('click', function () {
-        if(!$('#eventName').val() && datesArray.length === 0) {
+        if((!$('#eventName').val() && datesArray.length === 0) || !localStorage.userId) {
             return alert('Please provide a name and date(s)!');
-          } else if (!$('#eventName').val()) {
+          } else if (!($('#eventName').val() || localStorage.userId)) {
             return alert('Please let us know who you are!');
           } else if (datesArray.length ===0) {
             return alert('Your event needs a day (or more)!');
@@ -269,7 +275,7 @@ const domain = 'localhost:8080'
       $submitVote.on('click', function () {
         if(!$('#guestName').val() && voteDates.length === 0) {
           return alert('Please provide your availability!');
-        } else if (!$('#guestName').val()) {
+        } else if (!($('#guestName').val() || localStorage.userId)) {
           return alert('Please let us know who you are!');
         } else if (voteDates.length ===0) {
           return alert('Please pick a day (or more)!');
