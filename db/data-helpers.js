@@ -21,7 +21,6 @@ module.exports = function makeDataHelpers (knex) {
             .batchInsert('event_days', event.days, event.days.length)
             .then(() => unique)
             .catch(err => console.log(err))
-            .finally(() => knex.destroy())
         })
         .catch(err => console.log(err))
     },
@@ -29,12 +28,12 @@ module.exports = function makeDataHelpers (knex) {
       let eventData = { event: {}, votes: {} }
       return knex('events')
         .join('event_days', 'events.id', 'event_days.event_id')
-        .join(
+        .leftOuterJoin(
           'person_event_days',
           'person_event_days.event_day',
-          'event_days.event_id'
+          'event_days.id'
         )
-        .join('persons', 'person_event_days.person_id', 'persons.id')
+        .leftOuterJoin('persons', 'person_event_days.person_id', 'persons.id')
         .select(
           'events.name as event_name',
           'events.creator',
@@ -52,9 +51,11 @@ module.exports = function makeDataHelpers (knex) {
         .then(eventDays => {
           eventData.event = {
             name: eventDays[0].event_name,
-            creator: eventDays[0].creator
+            creator: eventDays[0].creator,
+            days: []
           }
           eventDays.forEach(eventDay => {
+            eventData.event.days.push(eventDay.event_date.toISOString().slice(0, 10))
             if (!eventData.votes[eventDay.person_id]) {
               eventData.votes[eventDay.person_id] = {
                 id: eventDay.person_hash,
@@ -66,10 +67,10 @@ module.exports = function makeDataHelpers (knex) {
               [ eventDay.event_date.toISOString().slice(0, 10) ] =
                 eventDay.vote
           })
+          console.log(eventData);
           return eventData
         })
         .catch(err => console.log(err))
-        .finally(() => knex.destroy())
     },
     editEvent: (eventId, eventData) => {
       let voteStorage = []
@@ -197,15 +198,15 @@ module.exports = function makeDataHelpers (knex) {
         }).then(() => {
           return knex('events').where('event_link_id', eventID).del()
         })
-    },    
-    //getTotAttendees: (eventID) => { 
-      getTotAttendees: function(eventID)  {     
-      eventAttendeesCount = await 
+    },
+    // getTotAttendees: (eventID) => {
+    getTotAttendees: function (eventID) {
+      const eventAttendeesCount = await
         knex('events').countDistinct('person_event_days.person_id')
           .innerJoin('event_days', 'events.id', 'event_days.event_id')
           .innerJoin('person_event_days', 'event_days.id', 'person_event_days.event_day')
-          .where('events.event_link_id', eventID);
-        return eventAttendeesCount;
+          .where('events.event_link_id', eventID)
+      return eventAttendeesCount
     }
   }
 }
