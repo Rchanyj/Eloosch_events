@@ -208,6 +208,7 @@ if (localStorage.userId){
       //discards selected fields, re-renders the previous state of the page
       function returnPrevious() {
           $("#calendar").fullCalendar('removeEvents')
+          $("*").removeClass('selected')
           loadEvent();
           voteDates = [];
           //locks fields again
@@ -257,7 +258,7 @@ if (localStorage.userId){
     //=============================================================/
 
       $submit.on('click', function () {
-        if((!$('#eventName').val() && datesArray.length === 0) || !localStorage.userId) {
+        if(!$('#eventName').val() && datesArray.length === 0) {
             return alert('Please provide a name and date(s)!');
           } else if (!($('#eventName').val() || localStorage.userId)) {
             return alert('Please let us know who you are!');
@@ -267,8 +268,10 @@ if (localStorage.userId){
             postEvent();
           }
         })
-
+      
+      if (window.location.pathname === "/") {
       $('#calendar').on('click', '.fc-day', calRefresh)
+      }
       $('.fc-right').on('click', calRefresh)
 
       //Upon form submit (pressing the 'confirm avail' button), trigger POST;
