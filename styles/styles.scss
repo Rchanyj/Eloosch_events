@@ -37,6 +37,7 @@ header {
 
 .button {
   text-align: center;
+  padding: 20px;
 
   div {
     font-size: 1.2em;
@@ -53,6 +54,12 @@ header {
       opacity: 1;
       background: #eee;
     }
+  }
+
+  #create-event-button {
+    width: auto;
+    padding-left: 1em;
+    padding-right: 1em;
   }
 
   &.button-med {

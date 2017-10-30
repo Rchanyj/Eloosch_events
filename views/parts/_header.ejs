@@ -1,3 +1,8 @@
 <header>
-  <span>Schoodle</span>
+
 </header>
+<% if (locals.eventName) { %>
+  <span class="logo-small"><%=locals.eventName%></span>
+<% } else { %>
+  <span>Schoodle</span>
+<% } %>

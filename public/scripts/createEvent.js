@@ -55,7 +55,7 @@ $(document).ready(function () {
   $submit.on('click', postEvent)
 
   $('#calendar').on('click', '.fc-day', calRefresh)
-  $('.fc-button-group').on('click', calRefresh)
+  $('.fc-right').on('click', calRefresh)
 
   $lockButton.on('click', function () {
     $(this).toggleClass('locked')
