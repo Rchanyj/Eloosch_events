@@ -33,6 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.get("/votes", (req, res) => {
+  res.locals.eventName = 'Dynamic Event Title'
   res.render('voting')
 })
 

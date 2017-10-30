@@ -1,6 +1,6 @@
 $(document).ready(function() {
-  const $submit = $('#confirm_avail');
-  const $form = $('#confirm_avail_form');
+  const $submitVote = $('#confirm_avail');
+  const $voteForm = $('#confirm_avail_form');
   let datesArray = [];
   var dates = {};
 
@@ -13,7 +13,7 @@ $(document).ready(function() {
 
       dayClick: function(date, jsEvent, view) {
       // toggle day color with clicks (by adding a new class to the clicked element)
-        if (!$form.hasClass('locked')) {
+        if (!$voteForm.hasClass('locked')) {
           const dateClicked = this[0].dataset.date;
           if ($(this).hasClass('selected')) {
             datesArray = datesArray.filter( a => a !== dateClicked );
@@ -103,9 +103,9 @@ $(document).ready(function() {
       //load event cal with user's newly submitted avail
       loadEvent();
       //lock fields
-      $form.addClass('locked');
+      $voteForm.addClass('locked');
       //Confirm button disappears:
-      $submit.hide();
+      $submitVote.hide();
       //Edit button appears
       $('#edit_avail').show();
     });
@@ -122,7 +122,7 @@ $(document).ready(function() {
       //render previous state
       loadEvent();
       //locks fields again
-      $form.addClass('locked');
+      $voteForm.addClass('locked');
       $(this).hide();
       $('#confirm_changes').hide();
       $('#edit_avail').show();
@@ -139,7 +139,7 @@ $(document).ready(function() {
       data: votesData
     }).done(function () {
       loadEvent();
-      $form.addClass('locked');
+      $voteForm.addClass('locked');
       $(this).hide();
       $('#cancel_edit').hide();
       $('#edit_avail').show();
@@ -172,7 +172,7 @@ $(document).ready(function() {
       data: eventUpdate
     }).done(function () {
       loadEvent();
-      $form.addClass('locked');
+      $voteForm.addClass('locked');
       $(this).hide();
       $('#cancel_edit').hide();
       $('#edit_avail').show();
@@ -184,7 +184,8 @@ $(document).ready(function() {
 //=============================================================/
 
   //Upon form submit (pressing the 'confirm avail' button), trigger POST;
-  $submit.on('click', function () {
+  $submitVote.on('click', function () {
+    console.log('here')
     if(!$('#guestName').val() && dateArray.length === 0) {
       return alert('Please provide your availability!');
     } else if (!$('#guestName').val()) {
@@ -201,7 +202,7 @@ $(document).ready(function() {
 
   $('#edit_avail').on('click', function() {
     //unlocks field for editing:
-    $form.removeClass('locked');
+    $voteForm.removeClass('locked');
     //hides edit button, reveals confirm and cancel buttons:
     $(this).hide();
     $('#cancel_edit').show();
@@ -229,7 +230,7 @@ $(document).ready(function() {
   //   //be able to unlock the fields for selecting/unselecting
   //   $('#edit_event').on('click', function() {
   //     //unlocks field for editing:
-  //     $form.removeClass('locked');
+  //     $voteForm.removeClass('locked');
   //     //hides edit button, reveals confirm and cancel buttons:
   //     $(this).hide();
   //     $('#cancel_edit').show();
