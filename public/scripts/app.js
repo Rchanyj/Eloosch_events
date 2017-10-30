@@ -101,7 +101,7 @@ const domain = 'localhost:8080'
           return
         } else {
           for(date in event.votes[guest].days) {
-            if(event.votes[guest].days.date == true) {
+            if(event.votes[guest].days[date] == true) {
               const eventObj = {
               title: event.votes[guest].name,
               allDay: true,
