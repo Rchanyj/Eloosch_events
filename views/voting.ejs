@@ -8,32 +8,38 @@
     <form id="confirm_avail_form" action="/:event_id/votes" action="POST">
       <div class="form-input focused">
         <p>Your Name</p><p>:</p>
-        <input type="text" placeholder="Let the fam know you're going!" name="guestName">
+        <input id="guestName" type="text" placeholder="Let the fam know you're going!" name="guestName">
       </div>
       <div class="form-input">
         <p>Your Email</p><p>:</p>
         <input id="email-input" type="email" placeholder="Email (not required)" name="email">
       </div>
 
-      <div class="button"><div id='confirm_avail' value='Confirm availability'>Confirm</div></div>
-      <div class="button"><div id='fakeconfirm'>Submit</div></div>
+      <div class="button"><div  id='confirm_avail'>Submit</div></div>
     </form>
   </section>
 </div>
 
-<div class="button"><div id='edit_avail'>Edit availability</div></div>
+<div class="button"><div hidden id='edit_avail'>Edit availability</div></div>
 
-<div class="button"><div id='cancel_edit'>Cancel changes</div></div>
+<div class="button"><div hidden id='cancel_edit'>Cancel changes</div></div>
 
-<div class="button"><div id='confirm_changes'>Confirm changes</div></div>
+<div class="button"><div hidden id='confirm_event_changes'>Confirm Event Changes</div></div>
 
 <div class='invite' id='invite'>
-  <p>special URL (placeholder)</p>
-  <button type='button' id='invite_button'>Invite more peeps</button>
+  <p style="text-align: center;"><script>$('.invite p').append(window.location.href)</script></p>
+  <div class="button"><div hidden id='invite_button'>Invite more peeps</div></div>
 </div>
 
-<div id="edit-event">
-  <div>Edit Event</div>
+<div>
+  <div hidden id="edit-event">Edit Event</div>
 </div>
 
 <% include ./parts/_footer %>
+
+
+
+
+
+
+
