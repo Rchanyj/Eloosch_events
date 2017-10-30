@@ -29,7 +29,6 @@ module.exports = (DataHelpers) => {
     // Post to database with event info
     DataHelpers.createEvent(newEvent)
       .then((ids) => {
-        console.log(ids.newEventId)
         res.status(200).json(ids)
       })
   })
@@ -81,12 +80,8 @@ module.exports = (DataHelpers) => {
   router.delete('/:event_id', (req, res) => {
     DataHelpers.deleteEvent(req.params.event_id)
   })
-  router.post('/:event_id/votes', (req, res) => {
-    // TESTER VOTING OBJECT
-    // REMOVE THIS WHEN USING
-    // curl -X POST http://localhost:8080/events/::unique_event_id/votes
-    // Post votes to database
 
+  router.post('/:event_id/votes', (req, res) => {
     DataHelpers.submitVotes(req.params.event_id, req.body)
       .then(id => res.json(id))
   })

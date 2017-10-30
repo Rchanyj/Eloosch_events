@@ -37,6 +37,8 @@ const domain = 'localhost:8080'
       data: queryStr
     })
     .done((res) => {
+      localStorage.userId = res.creatorId
+
       const url = '/events/' + res.newEventId;
       console.log(url)
       window.location.href = url
