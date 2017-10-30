@@ -34,6 +34,10 @@ const domain = 'localhost:8080'
       url: '/events',
       method: 'POST',
       data: queryStr
+    }).done((res) => {
+      console.log(res)
+      // $.ajax({
+      // })
     })
   }
 
@@ -58,6 +62,7 @@ const domain = 'localhost:8080'
     })
   }
 
+
   function calRefresh (event) {
     const dateClicked = $(this).attr('data-date')
     const isDay = $(this).hasClass('fc-day')
@@ -70,7 +75,7 @@ const domain = 'localhost:8080'
     } else {
       addSelectedClass(datesArray, 'selected')
     }
-    refreshEventDays()
+    addSelectedClass(datesArray, 'selected')
   }
 
   $submit.on('click', postEvent)
@@ -118,13 +123,8 @@ const domain = 'localhost:8080'
         for( day of event.event.days ) {
           dates[day] = false;
         }
-        console.log(dates)
         window.refreshEventDays = function() {
           addSelectedClass(event.event.days, 'event-day')
-          // event.event.days.forEach( date => {
-          //   console.log(date)
-          //   $('#calendar').addClass('event-day')
-          // })
         }
         renderEvent(event)
       })
