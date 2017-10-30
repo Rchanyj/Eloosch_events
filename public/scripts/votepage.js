@@ -83,7 +83,8 @@ $(document).ready(function() {
     const votes = {
       name: $('#confirm_avail_form').guestName,
       days: dates,
-      email: email
+      email: email,
+      hash: localStorage.userId
     };
     voteData = votes.serialize();
     return voteData;
