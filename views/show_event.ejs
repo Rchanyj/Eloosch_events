@@ -6,16 +6,15 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/votepage.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="/styles/votepage.css" type="text/css" /> -->
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/votepage.js"></script>
-    <script type="text/javascript" src="../scripts/events.js"></script>
 
     <!--Calendar links LINK TO FILES -->
-   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.6.2/fullcalendar.min.css"/>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.6.2/fullcalendar.min.css"/>
     <script src="http://momentjs.com/downloads/moment.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.6.2/fullcalendar.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.6.2/fullcalendar.min.js"></script>
   </head>
 
   <body>
@@ -42,12 +41,11 @@
     <h3 class="centered" id='event_eventName'><%= eventData.event.name %></h3>
     <h2 class="centered">What date(s) work for you?</h2>
     <div class='invite' id='invite'>
-      <p>special URL (placeholder)</p>
+      <p>special URL</p>
       <button type='button' id='invite_button'>Invite more peeps</button>
     </div>
     <div id='calendar'></div>
     <!--Renders events on calendar-->
-    <script> renderEvent(eventData) </script>
   </body>
 </html>
 

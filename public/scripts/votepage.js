@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
   const $submit = $('#confirm_avail');
   const $form = $('#confirm_avail_form');
   let datesArray = [];
@@ -27,44 +26,47 @@ $(document).ready(function() {
       eventLimit: true //displays events without stretching box size
   });
 
-
 /*====================================================*/
   // USER /CALENDAR INTERACTIONS //
 /*====================================================*/
   //render event (name, highlights)
-  function renderEvent() {
-
-    $('#eventName')[0].textContent(event.event.name);
-
+  function renderEvent(event) {
     //select (highlight) dates in db event entry
-    for(date in event.votes.1.days) {
-      $('#calendar').fullCalendar('select', date, true);
-    }; //find a way to make the selections persist even if other months are accessed
+    event.event.days.forEach( date => {
+      console.log(date);
+      $('#calendar').fullCalendar('select', date);
+    }); //find a way to make the selections persist even if other months are accessed
 
     //render each guest name and their votes
     for(guest in event.votes) {
-      for(date in guest.days) {
-        const eventObj = {
-        title: guest.name,
-        allDay: true,
-        start: date,
-        eventOrder: 'title'
+      if (!guest){
+        for(date in event.votes[guest].days) {
+          console.log(date);
+          const eventObj = {
+          title: event.votes[guest].name,
+          allDay: true,
+          start: date,
+          eventOrder: 'title'
+          };
+          $('#calendar').fullCalendar('renderEvent', eventObj, true);
         };
-        $('#calendar').fullCalendar('renderEvent', eventObj, true);
-      };
+      }
     };
   }
 
 
   //Fetch event data from db, render event and availabilities on cal-----------------------/
   function loadEvent() {
+    const eventId = window.location.pathname;
     $.ajax({
       method: 'GET',
-      url: '/:event_id/json'
+      url: `${eventId}/json`
     }).done(function(event) {
       renderEvent(event);
-    });
+    }).error( err => console.log(err));
   }
+
+  loadEvent()
 
   //Create string of voter data for ajax to submit to db
     //Submit an object of selected dates, with date : true
@@ -157,7 +159,7 @@ $(document).ready(function() {
       name: input.eventName,
       creator: input.creator,
       days : eventDays
-    ]};
+    };
   }
 
   //Updates event dates in db, renders new event dates
@@ -219,26 +221,26 @@ $(document).ready(function() {
 //IF EVENT CREATOR//
 /* ======================================================== */
 
-  if(/*eventcreatorcookie*/) {
-    //Edit event button should appear
-    $('#edit_event').show();
-    //If event creator, upon clicking 'edit event', creator should
-    //be able to unlock the fields for selecting/unselecting
-    $('#edit_event').on('click', function() {
-      //unlocks field for editing:
-      $form.removeClass('locked');
-      //hides edit button, reveals confirm and cancel buttons:
-      $(this).hide();
-      $('#cancel_edit').show();
-      $('#confirm_event_changes').show();
-    });
-  };
+  // if(eventcreatorcookie) {
+  //   //Edit event button should appear
+  //   $('#edit_event').show();
+  //   //If event creator, upon clicking 'edit event', creator should
+  //   //be able to unlock the fields for selecting/unselecting
+  //   $('#edit_event').on('click', function() {
+  //     //unlocks field for editing:
+  //     $form.removeClass('locked');
+  //     //hides edit button, reveals confirm and cancel buttons:
+  //     $(this).hide();
+  //     $('#cancel_edit').show();
+  //     $('#confirm_event_changes').show();
+  //   });
+  // };
 
-  //Upon clicking 'confirm event changes' AS ORGANIZER, should
-  //instead update the EVENT dates with a PUT request
-  $('#confirm_event_changes').on('click', function() {
-    updateEvent();
-  });
+  // //Upon clicking 'confirm event changes' AS ORGANIZER, should
+  // //instead update the EVENT dates with a PUT request
+  // $('#confirm_event_changes').on('click', function() {
+  //   updateEvent();
+  // });
 
 
 

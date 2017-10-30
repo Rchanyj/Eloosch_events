@@ -33,9 +33,6 @@ module.exports = (DataHelpers) => {
   router.get('/:event_id', (req, res) => {
     DataHelpers.getEvent(req.params.event_id)
       .then(event => {
-        // const count = DataHelpers.getTotAttendees(req.params.event_id)
-        // console.log(count)
-        // event.count = count[0].count
         const templateVars = {
           eventData: event
         }
@@ -44,6 +41,7 @@ module.exports = (DataHelpers) => {
   })
   // Fetches event obj from db for use in calendar
   router.get('/:event_id/json', (req, res) => {
+    console.log('Gettig json')
     DataHelpers.getEvent(req.params.event_id)
       .then(event => res.json(event))
   })
