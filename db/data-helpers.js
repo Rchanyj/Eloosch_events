@@ -66,6 +66,7 @@ module.exports = function makeDataHelpers (knex) {
           .where('events.event_link_id', eventId)
           // Format results into object for client side
           .then(eventDays => {
+            console.log(eventDays)
             eventData.event = {
               name: eventDays[0].event_name,
               creator: eventDays[0].creator,

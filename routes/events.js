@@ -25,7 +25,6 @@ module.exports = (DataHelpers) => {
       days
     }
     // Post to database with event info
-    console.log(newEvent)
     DataHelpers.createEvent(newEvent)
       .then((ids) => {
         res.status(200).json(ids)
@@ -83,20 +82,13 @@ module.exports = (DataHelpers) => {
     // REMOVE THIS WHEN USING
     // curl -X POST http://localhost:8080/events/::unique_event_id/votes
     // Post votes to database
+    console.log(req.body)
 
-    DataHelpers.submitVotes(req.params.event_id, votes)
+    DataHelpers.submitVotes(req.params.event_id, req.body)
       .then(id => res.json(id))
   })
   router.put('/:event_id/votes', (req, res) => {
-    const votes = {
-      name: 'someName2',
-      days: {
-        '2017-11-01': true,
-        '2017-11-02': true
-      },
-      hash: '8Q4ggFAphR6HbkPi',
-      email: 'address'
-    }
+
     // Edit votes in database
     DataHelpers.editVotes(req.params.event_id, votes)
       .then(edit => console.log(edit))

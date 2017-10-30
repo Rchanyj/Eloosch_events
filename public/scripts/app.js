@@ -50,6 +50,7 @@ const domain = 'localhost:8080'
     for (var i = 1; i < datesArray.length + 1; i++) {
       data = data + `&date${i}=${datesArray[i - 1]}`
     }
+    data += `&creatorId=${localStorage.userId}`
     return data
   }
 
@@ -99,7 +100,9 @@ const domain = 'localhost:8080'
       window.refreshEventDays()
       // render each guest name and their votes
       for (guest in event.votes) {
-        if (!guest){
+        if (guest === 'null'){
+          return
+        } else {
           for(date in event.votes[guest].days) {
             const eventObj = {
             title: event.votes[guest].name,
@@ -107,6 +110,7 @@ const domain = 'localhost:8080'
             start: date,
             eventOrder: 'title'
             };
+            console.log($('#calendar'))
             $('#calendar').fullCalendar('renderEvent', eventObj, true);
           }
         }
