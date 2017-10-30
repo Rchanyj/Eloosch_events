@@ -25,7 +25,7 @@ module.exports = (DataHelpers) => {
       days
     }
     // Post to database with event info
-
+    console.log(newEvent)
     DataHelpers.createEvent(newEvent)
       .then((ids) => {
         res.status(200).json(ids)
